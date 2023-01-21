@@ -21,9 +21,8 @@ public class FilmsTest {
     Films film13 = new Films(13, "446", 2008);
 
 
-
     @Test
-    public void showAllAddedFilms(){
+    public void showAllAddedFilms() {
         PosterManager film = new PosterManager();
 
         film.addFilm(film1);
@@ -47,7 +46,7 @@ public class FilmsTest {
     }
 
     @Test
-    public void showLastAddedFilmsDefault(){
+    public void showLastAddedFilmsDefault() {
         PosterManager film = new PosterManager();
 
         film.addFilm(film1);
@@ -71,7 +70,7 @@ public class FilmsTest {
     }
 
     @Test
-    public void showLastAddedFilmsDefaultFew(){
+    public void showLastAddedFilmsDefaultFew() {
         PosterManager film = new PosterManager();
 
         film.addFilm(film11);
@@ -85,8 +84,8 @@ public class FilmsTest {
     }
 
     @Test
-    public void showLastAddedFilmsParameters(){
-        PosterManager film = new PosterManager();
+    public void showLastAddedFilmsParameters() {
+        PosterManager film = new PosterManager(4);
 
         film.addFilm(film1);
         film.addFilm(film2);
@@ -103,14 +102,14 @@ public class FilmsTest {
         film.addFilm(film13);
 
         Films[] expected = {film13, film12, film11, film10};
-        Films[] actual = film.findLast(4);
+        Films[] actual = film.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void showLastAddedFilmsParametersFew(){
-        PosterManager film = new PosterManager();
+    public void showLastAddedFilmsParametersFew() {
+        PosterManager film = new PosterManager(4);
 
         film.addFilm(film1);
         film.addFilm(film2);
@@ -118,23 +117,23 @@ public class FilmsTest {
 
 
         Films[] expected = {film3, film2, film1};
-        Films[] actual = film.findLast(4);
+        Films[] actual = film.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void showLastAddedFilmsParametersEmpty(){
-        PosterManager film = new PosterManager();
+    public void showLastAddedFilmsParametersEmpty() {
+        PosterManager film = new PosterManager(4);
 
         Films[] expected = new Films[0];
-        Films[] actual = film.findLast(4);
+        Films[] actual = film.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void showLastAddedFilmsDefaultEmpty(){
+    public void showLastAddedFilmsDefaultEmpty() {
         PosterManager film = new PosterManager();
 
         Films[] expected = new Films[0];
