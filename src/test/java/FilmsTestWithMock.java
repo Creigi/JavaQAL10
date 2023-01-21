@@ -4,6 +4,7 @@ import org.mockito.Mockito;
 import ru.netology.manager.Films;
 import ru.netology.manager.PosterManager;
 import ru.netology.repository.PosterRepository;
+
 import static org.mockito.Mockito.*;
 
 public class FilmsTestWithMock {
@@ -25,7 +26,7 @@ public class FilmsTestWithMock {
     Films film13 = new Films(13, "446", 2008);
 
     @Test
-    public void showAllFilms(){
+    public void showAllFilms() {
         Films[] movies = {film1, film2, film3};
         doReturn(movies).when(repo).findAll();
 

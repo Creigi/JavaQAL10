@@ -10,6 +10,7 @@ public class FilmsTest {
 
     PosterRepository repo = new PosterRepository();
     PosterManager film = new PosterManager(repo);
+    PosterManager manager = new PosterManager(repo, 4);
 
     Films film1 = new Films(1, "111", 2000);
     Films film2 = new Films(2, "222", 2001);
@@ -26,7 +27,7 @@ public class FilmsTest {
     Films film13 = new Films(13, "446", 2008);
 
     @Test
-    public void showAllAddedFilms(){
+    public void showAllAddedFilms() {
 
         film.addFilm(film1);
         film.addFilm(film2);
@@ -49,7 +50,7 @@ public class FilmsTest {
     }
 
     @Test
-    public void showLastAddedFilmsDefault(){
+    public void showLastAddedFilmsDefault() {
 
         film.addFilm(film1);
         film.addFilm(film2);
@@ -72,7 +73,7 @@ public class FilmsTest {
     }
 
     @Test
-    public void showLastAddedFilmsDefaultFew(){
+    public void showLastAddedFilmsDefaultFew() {
 
         film.addFilm(film11);
         film.addFilm(film12);
@@ -85,7 +86,7 @@ public class FilmsTest {
     }
 
     @Test
-    public void showLastAddedFilmsParameters(){
+    public void showLastAddedFilmsParameters() {
 
         film.addFilm(film1);
         film.addFilm(film2);
@@ -102,13 +103,13 @@ public class FilmsTest {
         film.addFilm(film13);
 
         Films[] expected = {film13, film12, film11, film10};
-        Films[] actual = film.findLast(4);
+        Films[] actual = manager.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void showLastAddedFilmsParametersFew(){
+    public void showLastAddedFilmsParametersFew() {
 
         film.addFilm(film1);
         film.addFilm(film2);
@@ -116,22 +117,22 @@ public class FilmsTest {
 
 
         Films[] expected = {film3, film2, film1};
-        Films[] actual = film.findLast(4);
+        Films[] actual = manager.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void showLastAddedFilmsParametersEmpty(){
+    public void showLastAddedFilmsParametersEmpty() {
 
         Films[] expected = new Films[0];
-        Films[] actual = film.findLast(4);
+        Films[] actual = manager.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void showLastAddedFilmsDefaultEmpty(){
+    public void showLastAddedFilmsDefaultEmpty() {
 
         Films[] expected = new Films[0];
         Films[] actual = film.findLast();
@@ -140,7 +141,7 @@ public class FilmsTest {
     }
 
     @Test
-    public void findById(){
+    public void findById() {
 
         film.addFilm(film1);
         film.addFilm(film2);
@@ -163,7 +164,7 @@ public class FilmsTest {
     }
 
     @Test
-    public void findByNonExistentId(){
+    public void findByNonExistentId() {
         film.addFilm(film1);
         film.addFilm(film2);
         film.addFilm(film3);
@@ -185,7 +186,7 @@ public class FilmsTest {
     }
 
     @Test
-    public void removeById(){
+    public void removeById() {
         film.addFilm(film1);
         film.addFilm(film2);
         film.addFilm(film3);
@@ -200,7 +201,7 @@ public class FilmsTest {
     }
 
     @Test
-    public void removeAll(){
+    public void removeAll() {
         film.addFilm(film1);
         film.addFilm(film2);
         film.addFilm(film3);
