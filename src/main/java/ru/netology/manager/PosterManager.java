@@ -1,34 +1,35 @@
 package ru.netology.manager;
 
-public class PosterManager {
-    private Films[] films = new Films[0];
+import ru.netology.repository.PosterRepository;
 
+public class PosterManager {
+    private PosterRepository repo;
+
+    public PosterManager(PosterRepository repo) {
+        this.repo = repo;
+    }
     public void addFilm(Films film) {
-        Films[] tmp = new Films[films.length + 1];
-        for (int i = 0; i < films.length; i++) {
-            tmp[i] = films[i];
-        }
-        tmp[tmp.length - 1] = film;
-        films = tmp;
+        repo.save(film);
     }
 
-    public Films[] findAll() {
-        return films;
+    public Films[] showAll() {
+        return repo.findAll();
     }
 
 
     public Films[] findLast() {
         Films[] lastFilm;
+        Films[] all = repo.findAll();
 
-        if (films.length <= 10) {
-            lastFilm = new Films[films.length];
-            for (int i = 0; i < films.length; i++) {
-                lastFilm[i] = films[films.length - i - 1];
+        if (all.length <= 10) {
+            lastFilm = new Films[all.length];
+            for (int i = 0; i < all.length; i++) {
+                lastFilm[i] = all[all.length - i - 1];
             }
         } else {
             lastFilm = new Films[10];
             for (int i = 0; i < 10; i++) {
-                lastFilm[i] = films[films.length - i - 1];
+                lastFilm[i] = all[all.length - i - 1];
             }
         }
         return lastFilm;
@@ -36,16 +37,17 @@ public class PosterManager {
 
     public Films[] findLast(int resultLength) {
         Films[] lastFilm;
+        Films[] all = repo.findAll();
 
-        if (films.length <= resultLength) {
-            lastFilm = new Films[films.length];
-            for (int i = 0; i < films.length; i++) {
-                lastFilm[i] = films[films.length - i - 1];
+        if (all.length <= resultLength) {
+            lastFilm = new Films[all.length];
+            for (int i = 0; i < all.length; i++) {
+                lastFilm[i] = all[all.length - i - 1];
             }
         } else {
             lastFilm = new Films[resultLength];
             for (int i = 0; i < resultLength; i++) {
-                lastFilm[i] = films[films.length - i - 1];
+                lastFilm[i] = all[all.length - i - 1];
             }
         }
         return lastFilm;

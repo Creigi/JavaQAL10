@@ -1,10 +1,15 @@
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.NullString;
 import ru.netology.manager.Films;
 import ru.netology.manager.PosterManager;
+import ru.netology.repository.PosterRepository;
 
 public class FilmsTest {
+
+    PosterRepository repo = new PosterRepository();
+    PosterManager film = new PosterManager(repo);
 
     Films film1 = new Films(1, "111", 2000);
     Films film2 = new Films(2, "222", 2001);
@@ -20,11 +25,8 @@ public class FilmsTest {
     Films film12 = new Films(12, "213", 2007);
     Films film13 = new Films(13, "446", 2008);
 
-
-
     @Test
     public void showAllAddedFilms(){
-        PosterManager film = new PosterManager();
 
         film.addFilm(film1);
         film.addFilm(film2);
@@ -41,14 +43,13 @@ public class FilmsTest {
         film.addFilm(film13);
 
         Films[] expected = {film1, film2, film3, film4, film5, film6, film7, film8, film9, film10, film11, film12, film13};
-        Films[] actual = film.findAll();
+        Films[] actual = film.showAll();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void showLastAddedFilmsDefault(){
-        PosterManager film = new PosterManager();
 
         film.addFilm(film1);
         film.addFilm(film2);
@@ -72,7 +73,6 @@ public class FilmsTest {
 
     @Test
     public void showLastAddedFilmsDefaultFew(){
-        PosterManager film = new PosterManager();
 
         film.addFilm(film11);
         film.addFilm(film12);
@@ -86,7 +86,6 @@ public class FilmsTest {
 
     @Test
     public void showLastAddedFilmsParameters(){
-        PosterManager film = new PosterManager();
 
         film.addFilm(film1);
         film.addFilm(film2);
@@ -110,7 +109,6 @@ public class FilmsTest {
 
     @Test
     public void showLastAddedFilmsParametersFew(){
-        PosterManager film = new PosterManager();
 
         film.addFilm(film1);
         film.addFilm(film2);
@@ -125,7 +123,6 @@ public class FilmsTest {
 
     @Test
     public void showLastAddedFilmsParametersEmpty(){
-        PosterManager film = new PosterManager();
 
         Films[] expected = new Films[0];
         Films[] actual = film.findLast(4);
@@ -135,10 +132,84 @@ public class FilmsTest {
 
     @Test
     public void showLastAddedFilmsDefaultEmpty(){
-        PosterManager film = new PosterManager();
 
         Films[] expected = new Films[0];
         Films[] actual = film.findLast();
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void findById(){
+
+        film.addFilm(film1);
+        film.addFilm(film2);
+        film.addFilm(film3);
+        film.addFilm(film4);
+        film.addFilm(film5);
+        film.addFilm(film6);
+        film.addFilm(film7);
+        film.addFilm(film8);
+        film.addFilm(film9);
+        film.addFilm(film10);
+        film.addFilm(film11);
+        film.addFilm(film12);
+        film.addFilm(film13);
+
+        Films[] expected = {film13};
+        Films[] actual = repo.findById(13);
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void findByNonExistentId(){
+        film.addFilm(film1);
+        film.addFilm(film2);
+        film.addFilm(film3);
+        film.addFilm(film4);
+        film.addFilm(film5);
+        film.addFilm(film6);
+        film.addFilm(film7);
+        film.addFilm(film8);
+        film.addFilm(film9);
+        film.addFilm(film10);
+        film.addFilm(film11);
+        film.addFilm(film12);
+        film.addFilm(film13);
+
+        Films[] expected = null;
+        Films[] actual = repo.findById(100);
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void removeById(){
+        film.addFilm(film1);
+        film.addFilm(film2);
+        film.addFilm(film3);
+        film.addFilm(film4);
+
+        repo.removeById(3);
+
+        Films[] expected = {film1, film2, film4};
+        Films[] actual = repo.findAll();
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void removeAll(){
+        film.addFilm(film1);
+        film.addFilm(film2);
+        film.addFilm(film3);
+        film.addFilm(film4);
+
+        repo.removeAll();
+
+        Films[] expected = new Films[0];
+        Films[] actual = repo.findAll();
 
         Assertions.assertArrayEquals(expected, actual);
     }

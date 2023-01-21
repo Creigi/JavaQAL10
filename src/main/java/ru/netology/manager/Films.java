@@ -10,4 +10,8 @@ public class Films {
         this.title = title;
         this.released = released;
     }
+
+    public int getId(){
+        return id;
+    }
 }
