@@ -1,6 +1,16 @@
 package ru.netology.manager;
 
 public class PosterManager {
+    private int resultLength;
+
+    public PosterManager() {
+        resultLength = 10;
+    }
+
+    public PosterManager(int resultLength) {
+        this.resultLength = resultLength;
+    }
+
     private Films[] films = new Films[0];
 
     public void addFilm(Films film) {
@@ -16,25 +26,7 @@ public class PosterManager {
         return films;
     }
 
-
     public Films[] findLast() {
-        Films[] lastFilm;
-
-        if (films.length <= 10) {
-            lastFilm = new Films[films.length];
-            for (int i = 0; i < films.length; i++) {
-                lastFilm[i] = films[films.length - i - 1];
-            }
-        } else {
-            lastFilm = new Films[10];
-            for (int i = 0; i < 10; i++) {
-                lastFilm[i] = films[films.length - i - 1];
-            }
-        }
-        return lastFilm;
-    }
-
-    public Films[] findLast(int resultLength) {
         Films[] lastFilm;
 
         if (films.length <= resultLength) {
